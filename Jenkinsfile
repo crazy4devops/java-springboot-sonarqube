@@ -1,25 +1,16 @@
 pipeline {
-        agent any
-        stages {
-
-        // stage("Source") {
-        //   agent any
-        //   steps {
-        //       git branch: 'master', url: 'https://github.com/BINPIPE/java-springboot-sonarqube.git'
-        //   }
-        // }        
+      agent any
+      stages {     
         stage("Build") {
             steps {
                 sh 'mvn clean package'
             }
         }
-
         stage("SonarQube Analysis") {
             steps {
               sh 'mvn sonar:sonar'
             }
         }
-
         stage('Approve Deployment') {
               input{
                    message "Do you want to proceed for deployment?"
@@ -31,7 +22,7 @@ pipeline {
                 }
           } 
           
-        } // stage
+      } // stage
         
   // post {
 
