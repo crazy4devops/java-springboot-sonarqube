@@ -3,12 +3,20 @@ pipeline {
       stages {     
         stage("Build") {
             steps {
-                sh 'mvn clean package'
+                //sh 'cd mvn clean package'
+                sh '''
+                  cd sonarqube-scanner-maven/maven-basic/
+                  cd mvn clean package
+                '''
             }
         }
         stage("SonarQube Analysis") {
             steps {
               sh 'mvn sonar:sonar'
+              sh '''
+                  cd sonarqube-scanner-maven/maven-basic/
+                  mvn sonar:sonar
+                '''
             }
         }
         stage('Approve Deployment') {
